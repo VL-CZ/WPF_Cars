@@ -11,18 +11,23 @@ namespace WPF_KeyReact
         /// <summary>
         /// úhel, o který se otáčí tlačítko
         /// </summary>
-        public static readonly int rotationAngle = 30;
+        public static readonly double rotationAngle = 30;
+
+        /// <summary>
+        /// počet pixelů o které se pohne při pohybu
+        /// </summary>
+        public static readonly double pixelsPerMove = 20;
 
         /// <summary>
         /// úhel
         /// </summary>
-        private int angle;
-        public int Angle
+        private double angle;
+        public double Angle
         {
             get => angle;
             set
             {
-                int newAngle = value % 360;
+                double newAngle = value % 360;
                 angle = newAngle < 0 ? newAngle + 360 : newAngle;
             }
         }
@@ -43,8 +48,8 @@ namespace WPF_KeyReact
         public Tuple<double, double> CountMargin()
         {
             double myAngle = angle * (Math.PI / 180);
-            double topMargin = (-1) * Math.Sin(myAngle);
-            double leftMargin = (-1) * Math.Cos(myAngle);
+            double topMargin = (-1) * Math.Sin(myAngle) * pixelsPerMove;
+            double leftMargin = (-1) * Math.Cos(myAngle) * pixelsPerMove;
 
             return new Tuple<double, double>(topMargin, leftMargin);
         }

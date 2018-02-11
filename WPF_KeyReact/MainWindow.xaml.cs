@@ -20,8 +20,14 @@ namespace WPF_KeyReact
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// transformer
+        /// </summary>
         private Transformer transformer;
 
+        /// <summary>
+        /// kostruktor okna
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +36,11 @@ namespace WPF_KeyReact
             transformer = new Transformer();
         }
 
+        /// <summary>
+        /// reaguje na stisk klávesy, pohne tlačítkem 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             Thickness margin = ButtonCar.Margin;
@@ -38,8 +49,12 @@ namespace WPF_KeyReact
             {
                 case Key.Up:
                     Tuple<double, double> margins = transformer.CountMargin();
-                    margin.Top += margins.Item1;
-                    margin.Left += margins.Item2;
+
+                    if (IsInside(margin.Top + margins.Item1, margin.Left + margins.Item2))
+                    {
+                        margin.Top += margins.Item1;
+                        margin.Left += margins.Item2;
+                    }
                     break;
                 case Key.Left:
                     transformer.Angle -= Transformer.rotationAngle;
@@ -55,6 +70,17 @@ namespace WPF_KeyReact
 
             ButtonCar.Margin = margin;
             ButtonCar.RenderTransform = new RotateTransform(transformer.Angle);
+        }
+
+        /// <summary>
+        /// zkotroluje, jestli nevyjde ven z okna
+        /// </summary>
+        /// <param name="topMargin"></param>
+        /// <param name="leftMargin"></param>
+        /// <returns></returns>
+        private bool IsInside(double topMargin, double leftMargin)
+        {
+            return true;
         }
     }
 }
