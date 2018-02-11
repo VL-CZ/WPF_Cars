@@ -8,6 +8,9 @@ namespace WPF_KeyReact
 {
     class Transformer
     {
+        /// <summary>
+        /// úhel, o který se otáčí tlačítko
+        /// </summary>
         public static readonly int rotationAngle = 30;
 
         /// <summary>
