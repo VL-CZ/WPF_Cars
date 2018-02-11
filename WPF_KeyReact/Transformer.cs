@@ -19,10 +19,7 @@ namespace WPF_KeyReact
         private int angle;
         public int Angle
         {
-            get
-            {
-                return angle;
-            }
+            get => angle;
             set
             {
                 int newAngle = value % 360;
@@ -45,25 +42,9 @@ namespace WPF_KeyReact
         /// <returns></returns>
         public Tuple<double, double> CountMargin()
         {
-            int topBottom = -1;
-            int leftRight = -1;
-
-            if (angle <= 90)
-            {
-            }
-            else if (angle <= 180)
-                leftRight = 1;
-            else if (angle <= 270)
-            {
-                topBottom = 1;
-                leftRight = 1;
-            }
-            else
-                topBottom = 1;
-
             double myAngle = angle * (Math.PI / 180);
-            double topMargin = topBottom * Math.Abs(Math.Sin(myAngle));
-            double leftMargin = leftRight * Math.Abs(Math.Cos(myAngle));
+            double topMargin = (-1) * Math.Sin(myAngle);
+            double leftMargin = (-1) * Math.Cos(myAngle);
 
             return new Tuple<double, double>(topMargin, leftMargin);
         }
