@@ -30,10 +30,11 @@ namespace WPF_KeyReact
             {
                 double newAngle = value;
                 double myAngle = newAngle;
+                myAngle = angle < myAngle ? rotationAngle : -rotationAngle;
+
                 newAngle = newAngle % 360;
                 angle = newAngle < 0 ? newAngle + 360 : newAngle;
 
-                myAngle = angle < myAngle ? rotationAngle : rotationAngle;
                 myAngle *= (Math.PI / 180);
                 LeftFrontCorner = CountCoordinatesAfterRotation(myAngle, LeftFrontCorner);
                 RightFrontCorner = CountCoordinatesAfterRotation(myAngle, RightFrontCorner);
