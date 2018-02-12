@@ -31,9 +31,7 @@ namespace WPF_KeyReact
         public MainWindow()
         {
             InitializeComponent();
-
             this.KeyDown += new KeyEventHandler(MainWindow_KeyDown);
-            transformer = new Transformer();
         }
 
         /// <summary>
@@ -45,6 +43,12 @@ namespace WPF_KeyReact
         {
             Thickness margin = ButtonCar.Margin;
 
+            GeneralTransform generalTransform1 = ButtonCar.TransformToAncestor(GridMain);
+            Point point = generalTransform1.Transform(new Point(0, 0));
+
+            if (transformer == null)
+                transformer = new Transformer(point, ButtonCar.Height, ButtonCar.Width);
+
             switch (e.Key)
             {
                 case Key.Up:
@@ -52,8 +56,10 @@ namespace WPF_KeyReact
 
                     if (IsInside(margin.Top + margins.Item1, margin.Left + margins.Item2))
                     {
-                        margin.Top += margins.Item1;
-                        margin.Left += margins.Item2;
+                        margin.Top += margins.Item1 / 2;
+                        margin.Bottom -= margins.Item1 / 2;
+                        margin.Left += margins.Item2 / 2;
+                        margin.Right -= margins.Item2 / 2;
                     }
                     break;
                 case Key.Left:
@@ -70,6 +76,7 @@ namespace WPF_KeyReact
 
             ButtonCar.Margin = margin;
             ButtonCar.RenderTransform = new RotateTransform(transformer.Angle);
+
         }
 
         /// <summary>
@@ -82,5 +89,6 @@ namespace WPF_KeyReact
         {
             return true;
         }
+
     }
 }
