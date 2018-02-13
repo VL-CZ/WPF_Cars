@@ -21,9 +21,9 @@ namespace WPF_KeyReact
     public partial class MainWindow : Window
     {
         /// <summary>
-        /// transformer
+        /// auto
         /// </summary>
-        private Transformer transformer;
+        private Car car;
 
         /// <summary>
         /// kostruktor okna
@@ -35,7 +35,7 @@ namespace WPF_KeyReact
         }
 
         /// <summary>
-        /// reaguje na stisk klávesy, pohne tlačítkem 
+        /// reaguje na stisk klávesy, pohne autem
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -46,13 +46,13 @@ namespace WPF_KeyReact
             GeneralTransform generalTransform1 = ButtonCar.TransformToAncestor(GridMain);
             Point point = generalTransform1.Transform(new Point(0, 0));
 
-            if (transformer == null)
-                transformer = new Transformer(point, ButtonCar.Height, ButtonCar.Width);
+            if (car == null)
+                car = new Car(point, ButtonCar.Height, ButtonCar.Width);
 
             switch (e.Key)
             {
                 case Key.Up:
-                    Tuple<double, double> margins = transformer.CountMargin();
+                    Tuple<double, double> margins = car.CountMargin();
 
                     if (IsInside(margin.Top + margins.Item1, margin.Left + margins.Item2))
                     {
@@ -63,19 +63,19 @@ namespace WPF_KeyReact
                     }
                     break;
                 case Key.Left:
-                    transformer.Angle -= Transformer.rotationAngle;
+                    car.Angle -= Car.rotationAngle;
                     break;
                 case Key.Down:
                     break;
                 case Key.Right:
-                    transformer.Angle += Transformer.rotationAngle;
+                    car.Angle += Car.rotationAngle;
                     break;
                 default:
                     return;
             }
 
             ButtonCar.Margin = margin;
-            ButtonCar.RenderTransform = new RotateTransform(transformer.Angle);
+            ButtonCar.RenderTransform = new RotateTransform(car.Angle);
 
         }
 
@@ -87,6 +87,7 @@ namespace WPF_KeyReact
         /// <returns></returns>
         private bool IsInside(double topMargin, double leftMargin)
         {
+            // TODO: zjistit pixel z obrázku a rozhodnout, jestli je uvnitř dráhy
             return true;
         }
 

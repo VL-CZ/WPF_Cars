@@ -7,10 +7,10 @@ using System.Windows;
 
 namespace WPF_KeyReact
 {
-    class Transformer
+    class Car
     {
         /// <summary>
-        /// úhel, o který se otáčí tlačítko
+        /// úhel, o který se otáčí auto
         /// </summary>
         public static readonly double rotationAngle = 30;
 
@@ -42,7 +42,7 @@ namespace WPF_KeyReact
         }
 
         /// <summary>
-        /// souřadnice levého, pravého horního rohu a středu kontrolky
+        /// souřadnice levého, pravého horního rohu a středu auta
         /// </summary>
         public Point RightFrontCorner { get; private set; }
         public Point LeftFrontCorner { get; private set; }
@@ -51,7 +51,7 @@ namespace WPF_KeyReact
         /// <summary>
         /// konstruktor
         /// </summary>
-        public Transformer(Point leftUpperCorner, double height, double width)
+        public Car(Point leftUpperCorner, double height, double width)
         {
             angle = 0;
             RightFrontCorner = leftUpperCorner;
