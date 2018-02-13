@@ -32,6 +32,8 @@ namespace WPF_KeyReact
         {
             InitializeComponent();
             this.KeyDown += new KeyEventHandler(MainWindow_KeyDown);
+            new MapManager();
+            
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace WPF_KeyReact
         /// <returns></returns>
         private bool IsInside(double topMargin, double leftMargin)
         {
-            // TODO: zjistit pixel z obrázku a rozhodnout, jestli je uvnitř dráhy
+            
             return true;
         }
 

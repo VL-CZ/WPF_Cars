@@ -17,7 +17,7 @@ namespace WPF_KeyReact
         /// <summary>
         /// počet pixelů o které se pohne při pohybu
         /// </summary>
-        public static readonly double pixelsPerMove = 20;
+        public static readonly double pixelsPerMove = 10;
 
         /// <summary>
         /// aktuální úhel
