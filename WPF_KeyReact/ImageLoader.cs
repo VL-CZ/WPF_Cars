@@ -30,14 +30,14 @@ namespace WPF_KeyReact
         /// <returns></returns>
         public static RGBColor[,] Process(Image image)
         {
-            RGBColor[,] arrayOfValues = new RGBColor[image.Height, image.Width];
+            RGBColor[,] arrayOfValues = new RGBColor[image.Width, image.Height];
 
             for (int i = 0; i < image.Width; i++)
             {
                 for (int j = 0; j < image.Height; j++)
                 {
                     Color pixel = (image as Bitmap).GetPixel(i, j);
-                    arrayOfValues[j, i] = new RGBColor(pixel.R, pixel.G, pixel.B);
+                    arrayOfValues[i, j] = new RGBColor(pixel.R, pixel.G, pixel.B);
                 }
             }
 
@@ -57,6 +57,39 @@ namespace WPF_KeyReact
             this.r = r;
             this.g = g;
             this.b = b;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is RGBColor))
+            {
+                return false;
+            }
+
+            var color = (RGBColor)obj;
+            return r == color.r &&
+                   g == color.g &&
+                   b == color.b;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -839137856;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + r.GetHashCode();
+            hashCode = hashCode * -1521134295 + g.GetHashCode();
+            hashCode = hashCode * -1521134295 + b.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(RGBColor color1, RGBColor color2)
+        {
+            return color1.Equals(color2);
+        }
+
+        public static bool operator !=(RGBColor color1, RGBColor color2)
+        {
+            return !(color1 == color2);
         }
     }
 }

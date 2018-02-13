@@ -49,15 +49,44 @@ namespace WPF_KeyReact
         public Point Center { get; private set; }
 
         /// <summary>
+        /// souřadnice v předchozím tahu (hodí se při nemožnosti udělat tah)
+        /// </summary>
+        public Point PreviousRightFrontCorner { get; private set; }
+        public Point PreviousLeftFrontCorner { get; private set; }
+        public Point PreviousCenter { get; private set; }
+
+        /// <summary>
         /// konstruktor
         /// </summary>
         public Car(Point leftUpperCorner, double height, double width)
         {
             angle = 0;
+
             RightFrontCorner = leftUpperCorner;
             LeftFrontCorner = new Point(leftUpperCorner.X, leftUpperCorner.Y + height);
             Center = new Point(leftUpperCorner.X + width / 2, leftUpperCorner.Y + height / 2);
 
+            SetPreviousValues();
+        }
+
+        /// <summary>
+        /// nastaví předchozí hodnoty
+        /// </summary>
+        private void SetPreviousValues()
+        {
+            PreviousCenter = Center;
+            PreviousLeftFrontCorner = LeftFrontCorner;
+            PreviousRightFrontCorner = RightFrontCorner;
+        }
+
+        /// <summary>
+        /// nastaví hodnoty na původní hodnoty
+        /// </summary>
+        public void RestorePrevious()
+        {
+            Center = PreviousCenter;
+            LeftFrontCorner = PreviousLeftFrontCorner;
+            RightFrontCorner = PreviousRightFrontCorner;
         }
 
         /// <summary>
@@ -70,6 +99,8 @@ namespace WPF_KeyReact
             double myAngle = angle * (Math.PI / 180);
             double topMargin = (-1) * Math.Sin(myAngle) * pixelsPerMove;
             double leftMargin = (-1) * Math.Cos(myAngle) * pixelsPerMove;
+
+            SetPreviousValues();
 
             RightFrontCorner = new Point(RightFrontCorner.X + leftMargin / 2, RightFrontCorner.Y + topMargin / 2);
             LeftFrontCorner = new Point(LeftFrontCorner.X + leftMargin / 2, LeftFrontCorner.Y + topMargin / 2);
