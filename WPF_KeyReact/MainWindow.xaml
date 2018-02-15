@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_KeyReact"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Závody aut" Height="350" Width="525">
     <Grid Name="GridMain">
         <Grid.Background>
             <ImageBrush ImageSource="Images/background.png"/>
         </Grid.Background>
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" Height="50" Name="ButtonCar" 
+
+        <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
+
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="25" Name="ButtonCar" 
                 RenderTransformOrigin="0.5,0.5">
             <Button.Background>
                 <ImageBrush ImageSource="Images/arrow.png"/>

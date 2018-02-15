@@ -15,11 +15,11 @@ namespace WPF_KeyReact
         /// obrázek a obrázek na pixely
         /// </summary>
         public Image Background { get; private set; }
-        public RGBColor[,] BackgroundPixel { get; private set; }
+        public Color[,] BackgroundPixel { get; private set; }
         /// <summary>
         /// barva dráhy
         /// </summary>
-        public RGBColor trackColor;
+        private Color trackColor;
         /// <summary>
         /// cesta k souboru
         /// </summary>
@@ -32,7 +32,7 @@ namespace WPF_KeyReact
         public MapManager(Size size)
         {
             pathToFile = "background.png";
-            trackColor = new RGBColor(0, 0, 0);
+            trackColor = Color.FromArgb(0, 0, 0);
             Background = ImageLoader.LoadImage(size, pathToFile);
             BackgroundPixel = ImageLoader.Process(Background);
         }
