@@ -50,7 +50,7 @@ namespace WPF_KeyReact
             Thickness margin = ButtonCar.Margin;
 
             CheckForNewObjects();
-            
+
             switch (e.Key)
             {
                 case Key.Up:

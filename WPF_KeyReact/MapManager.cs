@@ -31,7 +31,7 @@ namespace WPF_KeyReact
         /// <param name="size"></param>
         public MapManager(Size size)
         {
-            pathToFile = "background.png";
+            pathToFile = "background_track.png";
             trackColor = Color.FromArgb(0, 0, 0);
             Background = ImageLoader.LoadImage(size, pathToFile);
             BackgroundPixel = ImageLoader.Process(Background);

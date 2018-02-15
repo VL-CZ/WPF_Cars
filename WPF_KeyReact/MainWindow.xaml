@@ -8,7 +8,7 @@
         Title="Závody aut" Height="350" Width="525">
     <Grid Name="GridMain">
         <Grid.Background>
-            <ImageBrush ImageSource="Images/background.png"/>
+            <ImageBrush ImageSource="Images/background_track.png"/>
         </Grid.Background>
 
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
