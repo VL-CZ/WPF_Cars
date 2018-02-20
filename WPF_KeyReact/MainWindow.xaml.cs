@@ -52,7 +52,8 @@ namespace WPF_KeyReact
 
         }
 
-        #region KeyUpDown
+        #region KeyUpDown Methods
+
         /// <summary>
         /// stisk tlačítka
         /// </summary>
@@ -100,7 +101,9 @@ namespace WPF_KeyReact
                     break;
             }
         }
+
         #endregion
+
         /// <summary>
         /// reaguje na stisk klávesy, pohne autem
         /// </summary>
@@ -108,23 +111,6 @@ namespace WPF_KeyReact
         /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-
-            //switch (e.Key)
-            //{
-            //    case Key.Up:
-
-            //        break;
-            //    case Key.Left:
-
-            //        break;
-            //    case Key.Down:
-            //        break;
-            //    case Key.Right:
-            //        car.Angle += Car.rotationAngle;
-            //        break;
-            //    default:
-            //        return;
-            //}
             Thickness margin = ButtonCar.Margin;
 
             if (upDown)
