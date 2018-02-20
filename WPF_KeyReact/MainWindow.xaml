@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_KeyReact"
         mc:Ignorable="d"
-        Title="Závody aut" Height="350" Width="525">
-    <Grid Name="GridMain">
+        Title="Závody aut" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <Grid.Background>
             <ImageBrush ImageSource="Images/background_track.png"/>
         </Grid.Background>

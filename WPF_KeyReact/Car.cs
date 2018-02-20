@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace WPF_KeyReact
 {
@@ -12,12 +13,12 @@ namespace WPF_KeyReact
         /// <summary>
         /// úhel, o který se otáčí auto
         /// </summary>
-        public static readonly double rotationAngle = 30;
+        public static readonly double rotationAngle = 3;
 
         /// <summary>
         /// počet pixelů o které se pohne při pohybu
         /// </summary>
-        public static readonly double pixelsPerMove = 10;
+        public static readonly double pixelsPerMove = 3;
 
         /// <summary>
         /// aktuální úhel

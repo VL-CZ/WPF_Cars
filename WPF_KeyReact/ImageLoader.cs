@@ -20,6 +20,7 @@ namespace WPF_KeyReact
         {
             path = Path.Combine(Path.GetDirectoryName(Directory.GetCurrentDirectory()), @"..\Images", path); // posune do složky aktuální aplikace a o složku výše
             Image loadImage = new Bitmap(path);
+           
             Image image = new Bitmap(loadImage, size);
             return image;
         }

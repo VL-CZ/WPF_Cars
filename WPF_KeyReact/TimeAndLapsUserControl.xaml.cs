@@ -25,8 +25,10 @@ namespace WPF_KeyReact
         public TimeAndLapsUserControl()
         {
             InitializeComponent();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             timer.Tick += Timer_Tick;
             timer.Start();
         }
