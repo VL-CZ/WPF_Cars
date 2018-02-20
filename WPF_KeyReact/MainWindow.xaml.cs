@@ -139,7 +139,7 @@ namespace WPF_KeyReact
         }
 
         /// <summary>
-        /// podívá se, jestli nejsou nové objekty (pokud je to v konstruktoru, tak vyhodí Exception)
+        /// načte nové objekty
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
