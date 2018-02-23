@@ -47,7 +47,7 @@ namespace WPF_KeyReact
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);
-            return BackgroundPixel[RoundX, RoundY] != areaColor;
+            return BackgroundPixel[RoundX, RoundY] != areaColor; //df
         }
     }
 }
