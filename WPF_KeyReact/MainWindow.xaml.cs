@@ -31,7 +31,16 @@ namespace WPF_KeyReact
         /// </summary>
         private MapManager mapManager;
 
+        /// <summary>
+        /// pomocné proměnné
+        /// </summary>
         private bool upDown, downDown, leftDown, rightDown = false;
+
+        /// <summary>
+        /// reference na UserControl elementy
+        /// </summary>
+        public TextBlock Player1Points { get; set; }
+        public TextBlock Player2Points { get; set; }
 
         /// <summary>
         /// kostruktor okna
@@ -136,10 +145,15 @@ namespace WPF_KeyReact
             ButtonCar.Margin = margin;
             ButtonCar.RenderTransform = new RotateTransform(car.Angle);
 
+            if (mapManager.PixelIsEmpty(car.LeftFrontCorner, true) || mapManager.PixelIsEmpty(car.RightFrontCorner, true))
+            {
+                int points = int.Parse(Player1Points.Text) + 1;
+                Player1Points.Text = points.ToString();
+            }
         }
 
         /// <summary>
-        /// načte nové objekty
+        /// načte objekty
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -147,6 +161,9 @@ namespace WPF_KeyReact
             Point point = generalTransform1.Transform(new Point(0, 0));
             car = new Car(point, ButtonCar.Height, ButtonCar.Width);
             mapManager = new MapManager(new System.Drawing.Size((int)(GridMain.ActualWidth), (int)(GridMain.ActualHeight)));
+
+            Player1Points = HelpClass.Player1Points;
+            Player2Points = HelpClass.Player2Points;
         }
     }
 }

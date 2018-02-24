@@ -13,7 +13,7 @@
             <Setter Property="Margin" Value="5,0"/>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

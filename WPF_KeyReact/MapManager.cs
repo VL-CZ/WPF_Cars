@@ -40,16 +40,20 @@ namespace WPF_KeyReact
         }
 
         /// <summary>
-        /// rozhodne, jestli je pixel volný
+        /// rozhodne, jestli je pixel volný a jestli je to cíl
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public bool PixelIsEmpty(System.Windows.Point point)
+        public bool PixelIsEmpty(System.Windows.Point point, bool finish = false)
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);
-            return BackgroundPixel[RoundX, RoundY] != areaColor;
+            if (finish)
+                return BackgroundPixel[RoundX, RoundY] == finishColor;
+            else
+                return BackgroundPixel[RoundX, RoundY] != areaColor;
         }
+
     }
 }
