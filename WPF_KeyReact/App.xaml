@@ -4,5 +4,16 @@
              xmlns:local="clr-namespace:WPF_KeyReact"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

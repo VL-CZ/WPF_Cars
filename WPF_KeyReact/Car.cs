@@ -49,6 +49,8 @@ namespace WPF_KeyReact
         public Point LeftFrontCorner { get; private set; }
         public Point Center { get; private set; }
 
+        public bool InFinish { get; set; } = false;
+
         /// <summary>
         /// souřadnice v předchozím tahu (hodí se při nemožnosti udělat tah)
         /// </summary>

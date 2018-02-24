@@ -40,12 +40,12 @@ namespace WPF_KeyReact
         }
 
         /// <summary>
-        /// rozhodne, jestli je pixel volný a jestli je to cíl
+        /// rozhodne, jestli je pixel volný / jestli je to cíl
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public bool PixelIsEmpty(System.Windows.Point point, bool finish = false)
+        public bool PixelIsEmptyOrFinish(System.Windows.Point point, bool finish = false) // pokud není zadán druhý paramter, tak je automaticky false
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);

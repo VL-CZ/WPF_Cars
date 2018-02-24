@@ -126,7 +126,7 @@ namespace WPF_KeyReact
             {
                 Tuple<double, double> margins = car.CountMargin();
 
-                if (mapManager.PixelIsEmpty(car.LeftFrontCorner) && mapManager.PixelIsEmpty(car.RightFrontCorner))
+                if (mapManager.PixelIsEmptyOrFinish(car.LeftFrontCorner) && mapManager.PixelIsEmptyOrFinish(car.RightFrontCorner))
                 {
                     margin.Top += margins.Item1 / 2;
                     margin.Bottom -= margins.Item1 / 2;
@@ -145,11 +145,7 @@ namespace WPF_KeyReact
             ButtonCar.Margin = margin;
             ButtonCar.RenderTransform = new RotateTransform(car.Angle);
 
-            if (mapManager.PixelIsEmpty(car.LeftFrontCorner, true) || mapManager.PixelIsEmpty(car.RightFrontCorner, true))
-            {
-                int points = int.Parse(Player1Points.Text) + 1;
-                Player1Points.Text = points.ToString();
-            }
+            CheckIfFinish();
         }
 
         /// <summary>
@@ -164,6 +160,25 @@ namespace WPF_KeyReact
 
             Player1Points = HelpClass.Player1Points;
             Player2Points = HelpClass.Player2Points;
+        }
+
+        /// <summary>
+        /// zkontroluje, jestli není v cíli (nepřičte body při zpětném průchodu)
+        /// </summary>
+        private void CheckIfFinish()
+        {
+            if ((mapManager.PixelIsEmptyOrFinish(car.LeftFrontCorner, true) || mapManager.PixelIsEmptyOrFinish(car.RightFrontCorner, true))
+                && car.LeftFrontCorner.X<car.Center.X)
+            {
+                if (!car.InFinish)
+                {
+                    int points = int.Parse(Player1Points.Text) + 1;
+                    Player1Points.Text = points.ToString();
+                }
+                car.InFinish = true;
+            }
+            else
+                car.InFinish = false;
         }
     }
 }
