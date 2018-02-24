@@ -20,6 +20,7 @@ namespace WPF_KeyReact
         /// barva okolí dráhy
         /// </summary>
         private Color areaColor;
+        private Color finishColor;
         /// <summary>
         /// cesta k souboru
         /// </summary>
@@ -33,6 +34,7 @@ namespace WPF_KeyReact
         {
             pathToFile = "background_track.png";
             areaColor = Color.FromArgb(255, 255, 255);
+            finishColor = Color.FromArgb(236, 28, 36);
             Background = ImageLoader.LoadImage(size, pathToFile);
             BackgroundPixel = ImageLoader.Process(Background);
         }
@@ -47,7 +49,7 @@ namespace WPF_KeyReact
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);
-            return BackgroundPixel[RoundX, RoundY] != areaColor; //df
+            return BackgroundPixel[RoundX, RoundY] != areaColor;
         }
     }
 }
