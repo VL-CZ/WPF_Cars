@@ -1,40 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace WPF_KeyReact
 {
     class MapManager
     {
         /// <summary>
-        /// obrázek a obrázek na pixely
+        /// background
         /// </summary>
-        public Image Background { get; private set; }
-        public Color[,] BackgroundPixel { get; private set; }
+        public Bitmap Background { get; private set; }
         /// <summary>
         /// barva okolí dráhy
         /// </summary>
-        private Color areaColor;
-        /// <summary>
-        /// cesta k souboru
-        /// </summary>
-        private string pathToFile;
+        private Color areaColor = Color.FromArgb(255, 255, 255);
+        
 
         /// <summary>
-        /// konstruktor
+        /// Constructor
         /// </summary>
-        /// <param name="size"></param>
         public MapManager(Size size)
         {
-            pathToFile = "background_track.png";
-            areaColor = Color.FromArgb(255, 255, 255);
-            Background = ImageLoader.LoadImage(size, pathToFile);
-            BackgroundPixel = ImageLoader.Process(Background);
+            Background = new Bitmap(new Bitmap("../../Images/background_track.png"), size);
         }
 
         /// <summary>
@@ -47,7 +39,7 @@ namespace WPF_KeyReact
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);
-            return BackgroundPixel[RoundX, RoundY] != areaColor; //df
+            return Background.GetPixel(RoundX, RoundY) != areaColor; 
         }
     }
 }

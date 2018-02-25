@@ -5,20 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace WPF_KeyReact
 {
     class Car
     {
+       FrameworkElement image;
+       double height, width;
+        MainWindow wnd;
+       public KeyStuff Up, Down, Right, Left;
+
         /// <summary>
         /// úhel, o který se otáčí auto
         /// </summary>
         public static readonly double rotationAngle = 3;
 
-        /// <summary>
-        /// počet pixelů o které se pohne při pohybu
-        /// </summary>
-        public static readonly double pixelsPerMove = 3;
+        
 
         /// <summary>
         /// aktuální úhel
@@ -41,70 +44,58 @@ namespace WPF_KeyReact
                 RightFrontCorner = CountCoordinatesAfterRotation(myAngle, RightFrontCorner);
             }
         }
-
+        private int speed = 0;      //pixels per move
+        public int Speed {
+            get => speed;
+            set
+            {
+                if (value >= 0 && value <= 5)
+                    speed = value;
+            }
+        }
         /// <summary>
         /// souřadnice levého, pravého horního rohu a středu auta
         /// </summary>
-        public Point RightFrontCorner { get; private set; }
-        public Point LeftFrontCorner { get; private set; }
         public Point Center { get; private set; }
-
+    
         /// <summary>
         /// souřadnice v předchozím tahu (hodí se při nemožnosti udělat tah)
         /// </summary>
-        public Point PreviousRightFrontCorner { get; private set; }
-        public Point PreviousLeftFrontCorner { get; private set; }
         public Point PreviousCenter { get; private set; }
 
         /// <summary>
         /// konstruktor
         /// </summary>
-        public Car(Point leftUpperCorner, double height, double width)
+        public Car(MainWindow wnd, Image car, UIElement ancestor, Key left, Key right, Key up, Key down)
         {
             angle = 0;
+            height = car.ActualHeight;
+            width = car.ActualWidth;
+            car.RenderTransformOrigin = new Point(0.5, 0.5);
+            Center = car.TransformToAncestor(ancestor).Transform(new Point(0.5, 0.5));
+            this.image = car;
 
-            RightFrontCorner = leftUpperCorner;
-            LeftFrontCorner = new Point(leftUpperCorner.X, leftUpperCorner.Y + height);
-            Center = new Point(leftUpperCorner.X + width / 2, leftUpperCorner.Y + height / 2);
-
-            SetPreviousValues();
+            //setting up controls
+            Left = new KeyStuff(left);
+            Right = new KeyStuff(right);
+            Up = new KeyStuff(up);
+            Down = new KeyStuff(down);
+            wnd.Controls.Add(Left);
+            wnd.Controls.Add(Right);
+            wnd.Controls.Add(Up);
+            wnd.Controls.Add(Down);
         }
-
-        /// <summary>
-        /// nastaví předchozí hodnoty
-        /// </summary>
-        private void SetPreviousValues()
-        {
-            PreviousCenter = Center;
-            PreviousLeftFrontCorner = LeftFrontCorner;
-            PreviousRightFrontCorner = RightFrontCorner;
-        }
-
-        /// <summary>
-        /// nastaví hodnoty na původní hodnoty
-        /// </summary>
-        public void RestorePrevious()
-        {
-            Center = PreviousCenter;
-            LeftFrontCorner = PreviousLeftFrontCorner;
-            RightFrontCorner = PreviousRightFrontCorner;
-        }
-
+        
         /// <summary>
         /// spočítá margin
         /// </summary>
-        /// <param name="angle"></param>
-        /// <returns></returns>
         public Tuple<double, double> CountMargin()
         {
             double myAngle = angle * (Math.PI / 180);
-            double topMargin = (-1) * Math.Sin(myAngle) * pixelsPerMove;
-            double leftMargin = (-1) * Math.Cos(myAngle) * pixelsPerMove;
-
-            SetPreviousValues();
-
-            RightFrontCorner = new Point(RightFrontCorner.X + leftMargin / 2, RightFrontCorner.Y + topMargin / 2);
-            LeftFrontCorner = new Point(LeftFrontCorner.X + leftMargin / 2, LeftFrontCorner.Y + topMargin / 2);
+            double topMargin = (-1) * Math.Sin(myAngle) * speed;
+            double leftMargin = (-1) * Math.Cos(myAngle) * speed;
+            
+            
             Center = new Point(Center.X + leftMargin / 2, Center.Y + topMargin / 2);
 
             return new Tuple<double, double>(topMargin, leftMargin);
@@ -124,6 +115,45 @@ namespace WPF_KeyReact
             double y = point.X * Math.Sin(angle) + point.Y * Math.Cos(angle);
 
             return new Point(x + Center.X, y + Center.Y);
+        }
+        /// <summary>
+        /// reaguje na stisk klávesy, pohne autem
+        /// </summary>
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (upDown)
+                car.Speed++;
+            if (downDown)
+                car.Speed--;
+            if (leftDown)
+            {
+                car.Angle -= Car.rotationAngle;
+                ButtonCar.RenderTransform = new RotateTransform(car.Angle);
+            }
+
+            if (rightDown)
+            {
+                car.Angle += Car.rotationAngle;
+                ButtonCar.RenderTransform = new RotateTransform(car.Angle);
+            }
+            Move();
+        }
+        public void Move()
+        {
+            Thickness margin = ButtonCar.Margin;
+
+            Tuple<double, double> margins = car.CountMargin();
+
+            if (mapManager.PixelIsEmpty(car.LeftFrontCorner) && mapManager.PixelIsEmpty(car.RightFrontCorner))
+            {
+                margin.Top += margins.Item1 / 2;
+                margin.Bottom -= margins.Item1 / 2;
+                margin.Left += margins.Item2 / 2;
+                margin.Right -= margins.Item2 / 2;
+            }
+            else
+                car.RestorePrevious();
+            ButtonCar.Margin = margin;
         }
     }
 }
