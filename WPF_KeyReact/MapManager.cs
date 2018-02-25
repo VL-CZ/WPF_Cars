@@ -9,12 +9,13 @@ using System.Drawing;
 
 namespace WPF_KeyReact
 {
-    class MapManager
+    public class MapManager
     {
         /// <summary>
         /// background
         /// </summary>
         public Bitmap Background { get; private set; }
+
         /// <summary>
         /// barva okolí dráhy
         /// </summary>
@@ -26,20 +27,21 @@ namespace WPF_KeyReact
         /// </summary>
         public MapManager(Size size)
         {
-            Background = new Bitmap(new Bitmap("../../Images/background_track.png"), size);
+            Image tmp = new Bitmap("../../Images/background_track.png");
+
+
+            Background = new Bitmap(tmp, size);
         }
 
         /// <summary>
         /// rozhodne, jestli je pixel volný
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
         public bool PixelIsEmpty(System.Windows.Point point)
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);
             return Background.GetPixel(RoundX, RoundY) != areaColor; 
+            
         }
     }
 }

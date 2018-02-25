@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:WPF_KeyReact"
         mc:Ignorable="d"
         Title="Závody aut" Height="600" Width="1000" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="-2,-1,2,1">
         <Grid.Background>
             <ImageBrush ImageSource="Images/background_track.png"/>
         </Grid.Background>
 
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
 
-        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Width="57" Height="44" Name="ButtonCar" Source="Images/arrow.png" Margin="533,263,404,264" Stretch="Fill"/>
+        <Image Name="ButtonCar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78" Height="44"  Source="Images/YellowCar.png" Margin="553,253,0,0" Stretch="Fill"/>
     </Grid>
 </Window>

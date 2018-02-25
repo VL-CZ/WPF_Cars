@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,19 +22,15 @@ namespace WPF_KeyReact
     {
         
         private Car car;
-        private MapManager mapManager;
-        internal List<KeyStuff> Controls = new List<KeyStuff>();
-        private bool upDown, downDown, leftDown, rightDown = false;
+        public MapManager mapManager;
+        internal ConcurrentBag<KeyStuff> Controls = new ConcurrentBag<KeyStuff>();          //concurrent bag je neco jako list, ale je multi thread safe = da se s nim pracovat z vice vlaken aniz by to hazelo errory. Pouzivam ho zde kvuli asynchroni operaci v methode ModifyKeyState
 
-        DispatcherTimer MoveTimer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(10) };
-        DispatcherTimer ReadInputTimer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(50)};
+        public DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(15) };
 
         public MainWindow()
         {
             InitializeComponent();
-            car = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down);
-            mapManager = new MapManager(new System.Drawing.Size((int)(GridMain.ActualWidth), (int)(GridMain.ActualHeight)));
-
+            
             this.KeyDown += (obj, args) => ModifyKeyState(args.Key, true);
             this.KeyUp += (obj, args) => ModifyKeyState(args.Key, false);
             
@@ -43,11 +40,15 @@ namespace WPF_KeyReact
         /// </summary>
         private void ModifyKeyState(Key key, bool b)
         {
-            foreach (var control in Controls)
+            Task.Run(() => 
             {
-                if (control.key == key)
-                    control.isDown = b;
-            }
+                foreach (var control in Controls)
+                {
+                    if (control.key == key)
+                        control.isDown = b;
+                }
+            });
+             
         }
 
         
@@ -56,8 +57,10 @@ namespace WPF_KeyReact
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MoveTimer.Start();
-            ReadInputTimer.Start();
+            car = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down);
+            mapManager = new MapManager(new System.Drawing.Size((int)(GridMain.ActualWidth), (int)(GridMain.ActualHeight)));
+
+            timer.Start();
         }
     }
 }

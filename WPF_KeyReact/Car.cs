@@ -6,50 +6,45 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace WPF_KeyReact
 {
     class Car
     {
-       FrameworkElement image;
-       double height, width;
+        FrameworkElement image;
+        double height, width;
         MainWindow wnd;
-       public KeyStuff Up, Down, Right, Left;
-
+        public KeyStuff Up, Down, Right, Left;
+        List<Point> Corners;
+        bool cornerCollision = false;
         /// <summary>
         /// úhel, o který se otáčí auto
         /// </summary>
         public static readonly double rotationAngle = 3;
-
+        public static readonly double accelerationRate = 0.05;
         
 
         /// <summary>
         /// aktuální úhel
         /// </summary>
-        private double angle;
+        private double angle = 0;
         public double Angle
         {
             get => angle;
             set
             {
-                double newAngle = value;
-                double myAngle = newAngle;
-                myAngle = angle < myAngle ? rotationAngle : -rotationAngle;
-
-                newAngle = newAngle % 360;
+                double newAngle = value % 360;                            //keeps angle always positive, but is it necessary?
                 angle = newAngle < 0 ? newAngle + 360 : newAngle;
-
-                myAngle *= (Math.PI / 180);
-                LeftFrontCorner = CountCoordinatesAfterRotation(myAngle, LeftFrontCorner);
-                RightFrontCorner = CountCoordinatesAfterRotation(myAngle, RightFrontCorner);
+                image.RenderTransform = new RotateTransform(Angle);
             }
         }
-        private int speed = 0;      //pixels per move
-        public int Speed {
+        private double speed = 0;      //pixels per move
+        public double Speed {
             get => speed;
             set
             {
-                if (value >= 0 && value <= 5)
+                if (value >= -3 && value <= 6)
                     speed = value;
             }
         }
@@ -66,14 +61,18 @@ namespace WPF_KeyReact
         /// <summary>
         /// konstruktor
         /// </summary>
-        public Car(MainWindow wnd, Image car, UIElement ancestor, Key left, Key right, Key up, Key down)
-        {
-            angle = 0;
+        public Car(MainWindow wnd, FrameworkElement car, UIElement ancestor, Key left, Key right, Key up, Key down)
+        {   this.image = car;
+            this.wnd = wnd;
+            wnd.timer.Tick += Timer_Tick;
+
+
             height = car.ActualHeight;
             width = car.ActualWidth;
-            car.RenderTransformOrigin = new Point(0.5, 0.5);
-            Center = car.TransformToAncestor(ancestor).Transform(new Point(0.5, 0.5));
-            this.image = car;
+            car.RenderTransformOrigin = new Point(0, 0);
+
+            Point relativePoint = car.TransformToAncestor(ancestor).Transform(new Point(0.5, 0.5));
+            Center = new Point(relativePoint.X + car.ActualWidth / 2, relativePoint.Y + car.ActualHeight / 2);
 
             //setting up controls
             Left = new KeyStuff(left);
@@ -86,27 +85,10 @@ namespace WPF_KeyReact
             wnd.Controls.Add(Down);
         }
         
-        /// <summary>
-        /// spočítá margin
-        /// </summary>
-        public Tuple<double, double> CountMargin()
-        {
-            double myAngle = angle * (Math.PI / 180);
-            double topMargin = (-1) * Math.Sin(myAngle) * speed;
-            double leftMargin = (-1) * Math.Cos(myAngle) * speed;
-            
-            
-            Center = new Point(Center.X + leftMargin / 2, Center.Y + topMargin / 2);
-
-            return new Tuple<double, double>(topMargin, leftMargin);
-        }
-
+        
         /// <summary>
         /// otočí bod kolem Center
         /// </summary>
-        /// <param name="angle">úhel</param>
-        /// <param name="point">bod</param>
-        /// <returns>souřadnice otočeného bodu</returns>
         private Point CountCoordinatesAfterRotation(double angle, Point point)
         {
             point = new Point(point.X - Center.X, point.Y - Center.Y);
@@ -119,41 +101,83 @@ namespace WPF_KeyReact
         /// <summary>
         /// reaguje na stisk klávesy, pohne autem
         /// </summary>
-        private void Timer_Tick(object sender, EventArgs e)
+        public void Timer_Tick(object sender, EventArgs e)
         {
-            if (upDown)
-                car.Speed++;
-            if (downDown)
-                car.Speed--;
-            if (leftDown)
+            if (Up.isDown)
+                Speed += accelerationRate;
+            else if (Down.isDown)
             {
-                car.Angle -= Car.rotationAngle;
-                ButtonCar.RenderTransform = new RotateTransform(car.Angle);
-            }
-
-            if (rightDown)
-            {
-                car.Angle += Car.rotationAngle;
-                ButtonCar.RenderTransform = new RotateTransform(car.Angle);
-            }
-            Move();
-        }
-        public void Move()
-        {
-            Thickness margin = ButtonCar.Margin;
-
-            Tuple<double, double> margins = car.CountMargin();
-
-            if (mapManager.PixelIsEmpty(car.LeftFrontCorner) && mapManager.PixelIsEmpty(car.RightFrontCorner))
-            {
-                margin.Top += margins.Item1 / 2;
-                margin.Bottom -= margins.Item1 / 2;
-                margin.Left += margins.Item2 / 2;
-                margin.Right -= margins.Item2 / 2;
+                if (Speed > 0)
+                {
+                    Speed -= 2 * accelerationRate;                     //brakes
+                }
+                else if (Speed < 0)
+                {
+                    Speed -= accelerationRate;
+                }
             }
             else
-                car.RestorePrevious();
-            ButtonCar.Margin = margin;
+            {
+                if (Speed > 0)
+                {
+                    Speed -= accelerationRate;
+                }
+                else if (Speed < 0)
+                {
+                    Speed += accelerationRate;
+                }
+            }
+            if (Left.isDown)
+            {
+                Angle -= Car.rotationAngle;
+            }
+            if (Right.isDown)
+            {
+                Angle += Car.rotationAngle;
+            }
+
+
+            Move();
+        }
+        /// <summary>
+        /// pohne autem
+        /// </summary>
+        public void Move()                                       
+        {
+            double piAngle = angle / 180 * Math.PI ;
+            double topMargin = (-1) * Math.Sin(piAngle) * speed;
+            double leftMargin = (-1) * Math.Cos(piAngle) * speed;
+
+           
+            Point NewCenter = new Point(Center.X + leftMargin / 2, Center.Y + topMargin / 2);
+            
+            if (cornerCollision)
+            {
+                Corners = new List<Point>
+                {
+                    new Point(NewCenter.X + width / 2, NewCenter.Y + height / 2),
+                    new Point(NewCenter.X - width / 2, NewCenter.Y + height / 2),
+                    new Point(NewCenter.X + width / 2, NewCenter.Y - height / 2),
+                    new Point(NewCenter.X - width / 2, NewCenter.Y - height / 2),
+                };
+            }
+            
+
+            if ( cornerCollision? Corners.TrueForAll(corner => wnd.mapManager.PixelIsEmpty(corner)) : wnd.mapManager.PixelIsEmpty(NewCenter))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
+            {
+                Center = NewCenter;
+                image.Margin = new Thickness
+                (
+                    image.Margin.Left + leftMargin / 2,
+                    image.Margin.Top + topMargin / 2,
+                    0,
+                    0
+                );
+            }
+            else
+            {
+                Speed = 0;      //stops because of collision
+            }
         }
     }
 }
