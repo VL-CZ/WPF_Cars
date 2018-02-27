@@ -20,7 +20,7 @@ namespace WPF_KeyReact
     
     public partial class MainWindow : Window
     {
-        
+
         private Car car;
         public MapManager mapManager;
         internal ConcurrentBag<KeyStuff> Controls = new ConcurrentBag<KeyStuff>();          //concurrent bag je neco jako list, ale je multi thread safe = da se s nim pracovat z vice vlaken aniz by to hazelo errory. Pouzivam ho zde kvuli asynchroni operaci v methode ModifyKeyState
@@ -65,9 +65,6 @@ namespace WPF_KeyReact
              
         }
 
-            CheckIfFinish();
-        }
-
         /// <summary>
         /// načte objekty
         /// </summary>
@@ -92,12 +89,6 @@ namespace WPF_KeyReact
                 {
                     int points = int.Parse(Player1Points.Text) + 1;
                     Player1Points.Text = points.ToString();
-
-                    if (points >= 5)
-                    {
-                        MessageBox.Show("Hráč 1 vyhrál");
-                        this.Close();
-                    }
                 }
                 car.InFinish = true;
             }

@@ -65,7 +65,7 @@ namespace WPF_KeyReact
         public bool InFinish { get; set; } = false;
 
         /// <summary>
-        /// souřadnice v předchozím tahu (hodí se při nemožnosti udělat tah)
+        /// souřadnice v předchozím tahu (hodí se při nemožnosti udělat tah) 
         /// </summary>
         public Point PreviousRightFrontCorner { get; private set; }
         public Point PreviousLeftFrontCorner { get; private set; }
