@@ -12,12 +12,12 @@ namespace WPF_KeyReact
 {
     class Car
     {
-        FrameworkElement image;
-        double height, width;
-        MainWindow wnd;
+        private FrameworkElement image;
+        private double height, width;
+        private MainWindow wnd;
         public KeyStuff Up, Down, Right, Left;
-        List<Point> Corners;
-        bool cornerCollision = false;
+        private List<Point> Corners;
+        private bool cornerCollision = false;
         /// <summary>
         /// úhel, o který se otáčí auto
         /// </summary>
@@ -42,6 +42,7 @@ namespace WPF_KeyReact
                 angle = newAngle < 0 ? newAngle + 360 : newAngle;
 
                 myAngle *= (Math.PI / 180);
+                
                 LeftFrontCorner = CountCoordinatesAfterRotation(myAngle, LeftFrontCorner);
                 RightFrontCorner = CountCoordinatesAfterRotation(myAngle, RightFrontCorner);
             }
@@ -73,6 +74,7 @@ namespace WPF_KeyReact
             this.image = car;
             this.wnd = wnd;
             wnd.timer.Tick += Timer_Tick;
+            wnd.timer.Start();
 
             height = car.ActualHeight;
             width = car.ActualWidth;
@@ -89,6 +91,7 @@ namespace WPF_KeyReact
             Right = new KeyStuff(right);
             Up = new KeyStuff(up);
             Down = new KeyStuff(down);
+
             wnd.Controls.Add(Left);
             wnd.Controls.Add(Right);
             wnd.Controls.Add(Up);

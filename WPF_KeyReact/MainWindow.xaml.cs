@@ -28,11 +28,6 @@ namespace WPF_KeyReact
         public DispatcherTimer timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(15) };
 
         /// <summary>
-        /// pomocné proměnné
-        /// </summary>
-        private bool upDown, downDown, leftDown, rightDown = false;
-
-        /// <summary>
         /// reference na UserControl elementy
         /// </summary>
         public TextBlock Player1Points { get; set; }
