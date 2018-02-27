@@ -20,7 +20,7 @@ namespace WPF_KeyReact
     
     public partial class MainWindow : Window
     {
-        
+
         private Car car;
         public MapManager mapManager;
         internal ConcurrentBag<KeyStuff> Controls = new ConcurrentBag<KeyStuff>();          //concurrent bag je neco jako list, ale je multi thread safe = da se s nim pracovat z vice vlaken aniz by to hazelo errory. Pouzivam ho zde kvuli asynchroni operaci v methode ModifyKeyState
@@ -63,9 +63,6 @@ namespace WPF_KeyReact
                 }
             });
              
-        }
-
-            CheckIfFinish();
         }
 
         /// <summary>
