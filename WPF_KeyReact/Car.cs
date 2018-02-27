@@ -23,7 +23,7 @@ namespace WPF_KeyReact
         /// </summary>
         public static readonly double rotationAngle = 3;
         public static readonly double accelerationRate = 0.05;
-        
+
 
         /// <summary>
         /// aktuální úhel
@@ -40,7 +40,8 @@ namespace WPF_KeyReact
             }
         }
         private double speed = 0;      //pixels per move
-        public double Speed {
+        public double Speed
+        {
             get => speed;
             set
             {
@@ -52,7 +53,7 @@ namespace WPF_KeyReact
         /// souřadnice levého, pravého horního rohu a středu auta
         /// </summary>
         public Point Center { get; private set; }
-    
+
         /// <summary>
         /// souřadnice v předchozím tahu (hodí se při nemožnosti udělat tah)
         /// </summary>
@@ -62,7 +63,8 @@ namespace WPF_KeyReact
         /// konstruktor
         /// </summary>
         public Car(MainWindow wnd, FrameworkElement car, UIElement ancestor, Key left, Key right, Key up, Key down)
-        {   this.image = car;
+        {
+            this.image = car;
             this.wnd = wnd;
             wnd.timer.Tick += Timer_Tick;
 
@@ -84,8 +86,8 @@ namespace WPF_KeyReact
             wnd.Controls.Add(Up);
             wnd.Controls.Add(Down);
         }
-        
-        
+
+
         /// <summary>
         /// otočí bod kolem Center
         /// </summary>
@@ -142,15 +144,15 @@ namespace WPF_KeyReact
         /// <summary>
         /// pohne autem
         /// </summary>
-        public void Move()                                       
+        public void Move()
         {
-            double piAngle = angle / 180 * Math.PI ;
+            double piAngle = angle / 180 * Math.PI;
             double topMargin = (-1) * Math.Sin(piAngle) * speed;
             double leftMargin = (-1) * Math.Cos(piAngle) * speed;
 
-           
+
             Point NewCenter = new Point(Center.X + leftMargin / 2, Center.Y + topMargin / 2);
-            
+
             if (cornerCollision)
             {
                 Corners = new List<Point>
@@ -161,9 +163,9 @@ namespace WPF_KeyReact
                     new Point(NewCenter.X - width / 2, NewCenter.Y - height / 2),
                 };
             }
-            
 
-            if ( cornerCollision? Corners.TrueForAll(corner => wnd.mapManager.PixelIsEmpty(corner)) : wnd.mapManager.PixelIsEmpty(NewCenter))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
+
+            if (cornerCollision ? Corners.TrueForAll(corner => wnd.mapManager.PixelIsEmpty(corner)) : wnd.mapManager.PixelIsEmpty(NewCenter))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
             {
                 Center = NewCenter;
                 image.Margin = new Thickness

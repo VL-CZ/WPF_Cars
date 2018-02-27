@@ -17,10 +17,10 @@ using System.Windows.Threading;
 
 namespace WPF_KeyReact
 {
-    
+
     public partial class MainWindow : Window
     {
-        
+
         private Car car;
         public MapManager mapManager;
         internal ConcurrentBag<KeyStuff> Controls = new ConcurrentBag<KeyStuff>();          //concurrent bag je neco jako list, ale je multi thread safe = da se s nim pracovat z vice vlaken aniz by to hazelo errory. Pouzivam ho zde kvuli asynchroni operaci v methode ModifyKeyState
@@ -30,17 +30,17 @@ namespace WPF_KeyReact
         public MainWindow()
         {
             InitializeComponent();
-            
+
             this.KeyDown += (obj, args) => ModifyKeyState(args.Key, true);
             this.KeyUp += (obj, args) => ModifyKeyState(args.Key, false);
-            
+
         }
         /// <summary>
         /// find key in controls and changes its state
         /// </summary>
         private void ModifyKeyState(Key key, bool b)
         {
-            Task.Run(() => 
+            Task.Run(() =>
             {
                 foreach (var control in Controls)
                 {
@@ -48,10 +48,10 @@ namespace WPF_KeyReact
                         control.isDown = b;
                 }
             });
-             
+
         }
 
-        
+
         /// <summary>
         /// načte nové objekty
         /// </summary>
