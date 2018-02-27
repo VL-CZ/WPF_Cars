@@ -80,20 +80,20 @@ namespace WPF_KeyReact
         /// <summary>
         /// zkontroluje, jestli není v cíli (nepřičte body při zpětném průchodu)
         /// </summary>
-        private void CheckIfFinish()
-        {
-            if ((mapManager.PixelIsEmptyOrFinish(car.LeftFrontCorner, true) || mapManager.PixelIsEmptyOrFinish(car.RightFrontCorner, true))
-                && car.LeftFrontCorner.X<car.Center.X)
-            {
-                if (!car.InFinish)
-                {
-                    int points = int.Parse(Player1Points.Text) + 1;
-                    Player1Points.Text = points.ToString();
-                }
-                car.InFinish = true;
-            }
-            else
-                car.InFinish = false;
-        }
+        //private void CheckIfFinish()
+        //{
+        //    if ((mapManager.PixelIsEmpty(car.LeftFrontCorner, true) || mapManager.PixelIsEmptyOrFinish(car.RightFrontCorner, true))
+        //        && car.LeftFrontCorner.X<car.Center.X)
+        //    {
+        //        if (!car.InFinish)
+        //        {
+        //            int points = int.Parse(Player1Points.Text) + 1;
+        //            Player1Points.Text = points.ToString();
+        //        }
+        //        car.InFinish = true;
+        //    }
+        //    else
+        //        car.InFinish = false;
+        //}
     }
 }

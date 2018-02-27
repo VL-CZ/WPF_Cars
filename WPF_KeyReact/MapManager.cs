@@ -29,7 +29,6 @@ namespace WPF_KeyReact
         {
             Image tmp = new Bitmap("../../Images/background_track.png");
 
-
             Background = new Bitmap(tmp, size);
         }
 
