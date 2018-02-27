@@ -10,12 +10,19 @@ using System.Windows.Media;
 
 namespace WPF_KeyReact
 {
-    class Car
+    public class Car
     {
+        #region Variable Declaration
+
+        /// <summary>
+        /// proměnné
+        /// </summary>
         private FrameworkElement image;
         private double height, width;
         private MainWindow wnd;
         public KeyStuff Up, Down, Right, Left;
+        public string Name { get; set; }
+
         /// <summary>
         /// úhel, o který se otáčí auto
         /// </summary>
@@ -65,13 +72,19 @@ namespace WPF_KeyReact
         public Point LeftFrontCorner { get; private set; }
         public Point Center { get; private set; }
 
+        /// <summary>
+        /// je v cíli?
+        /// </summary>
         public bool InFinish { get; set; } = false;
+
+        #endregion
 
         /// <summary>
         /// konstruktor
         /// </summary>
-        public Car(MainWindow wnd, FrameworkElement car, UIElement ancestor, Key left, Key right, Key up, Key down)
+        public Car(MainWindow wnd, FrameworkElement car, UIElement ancestor, Key left, Key right, Key up, Key down, String name)
         {
+            Name = name;
             this.image = car;
             this.wnd = wnd;
             wnd.timer.Tick += Timer_Tick;
@@ -112,6 +125,7 @@ namespace WPF_KeyReact
 
             return new Point(x + Center.X, y + Center.Y);
         }
+        
         /// <summary>
         /// reaguje na stisk klávesy, pohne autem
         /// </summary>
@@ -190,6 +204,35 @@ namespace WPF_KeyReact
             {
                 Speed = 0;      //stops because of collision
             }
+            CheckIfFinish();
         }
+
+        /// <summary>
+        /// zkontroluje, jestli není v cíli (nepřičte body při zpětném průchodu)
+        /// </summary>
+        private void CheckIfFinish()
+        {
+            if ((wnd.mapManager.PixelIsEmptyOrFinish(LeftFrontCorner, true) || wnd.mapManager.PixelIsEmptyOrFinish(RightFrontCorner, true))
+                && LeftFrontCorner.X < Center.X)
+            {
+                if (!InFinish)
+                {
+                    int points = int.Parse(wnd.Player1Points.Text) + 1;
+                    wnd.Player1Points.Text = points.ToString();
+
+                    if (points >= 5)
+                        wnd.ShowWinner(this);
+                }
+                InFinish = true;
+            }
+            else
+                InFinish = false;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 }

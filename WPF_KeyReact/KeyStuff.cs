@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace WPF_KeyReact
 {
-    internal class KeyStuff
+    public class KeyStuff
     {
         public bool isDown;
         public Key key;

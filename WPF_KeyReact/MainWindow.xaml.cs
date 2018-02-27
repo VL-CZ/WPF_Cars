@@ -65,7 +65,7 @@ namespace WPF_KeyReact
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            car = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down);
+            car = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down,"Player 1");
             mapManager = new MapManager(new System.Drawing.Size((int)(GridMain.ActualWidth), (int)(GridMain.ActualHeight)));
 
             Player1Points = HelpClass.Player1Points;
@@ -73,22 +73,14 @@ namespace WPF_KeyReact
         }
 
         /// <summary>
-        /// zkontroluje, jestli není v cíli (nepřičte body při zpětném průchodu)
+        /// TODO - lepší zobrazení než MessageBox, př Page/ UserControl
         /// </summary>
-        //private void CheckIfFinish()
-        //{
-        //    if ((mapManager.PixelIsEmpty(car.LeftFrontCorner, true) || mapManager.PixelIsEmptyOrFinish(car.RightFrontCorner, true))
-        //        && car.LeftFrontCorner.X<car.Center.X)
-        //    {
-        //        if (!car.InFinish)
-        //        {
-        //            int points = int.Parse(Player1Points.Text) + 1;
-        //            Player1Points.Text = points.ToString();
-        //        }
-        //        car.InFinish = true;
-        //    }
-        //    else
-        //        car.InFinish = false;
-        //}
+        /// <param name="winner"></param>
+        public void ShowWinner(Car winner)
+        {
+            MessageBox.Show("Vyhrál hráč: " + winner);
+            this.Close();
+        }
+        
     }
 }
