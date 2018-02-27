@@ -5,14 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_KeyReact"
         mc:Ignorable="d"
-        Title="Závody aut" Height="600" Width="1000" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="-2,-1,2,1">
-        <Grid.Background>
-            <ImageBrush ImageSource="Images/background_track.png"/>
-        </Grid.Background>
-
-        <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
-
-        <Image Name="ButtonCar" VerticalAlignment="Center" HorizontalAlignment="Center" Width="78" Height="44"  Source="Images/YellowCar.png"/>
-    </Grid>
+        Title="Závody aut" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Frame Name="ContentFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 </Window>

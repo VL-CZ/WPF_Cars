@@ -19,9 +19,10 @@ namespace WPF_KeyReact
         /// </summary>
         private FrameworkElement image;
         private double height, width;
-        private MainWindow wnd;
+        private GamePage gamePage;
         public KeyStuff Up, Down, Right, Left;
-        public string Name { get; set; }
+        public string Name { get; private set; }
+        public int Points { get; private set; } = 0;
 
         /// <summary>
         /// úhel, o který se otáčí auto
@@ -82,11 +83,11 @@ namespace WPF_KeyReact
         /// <summary>
         /// konstruktor
         /// </summary>
-        public Car(MainWindow wnd, FrameworkElement car, UIElement ancestor, Key left, Key right, Key up, Key down, String name)
+        public Car(GamePage wnd, FrameworkElement car, UIElement ancestor, Key left, Key right, Key up, Key down, String name)
         {
             Name = name;
             this.image = car;
-            this.wnd = wnd;
+            this.gamePage = wnd;
             wnd.timer.Tick += Timer_Tick;
             wnd.timer.Start();
 
@@ -186,7 +187,7 @@ namespace WPF_KeyReact
                     newCenter, newLeftFrontCorner,newRightFrontCorner
             };
 
-            if (Corners.TrueForAll(corner => wnd.mapManager.PixelIsEmptyOrFinish(corner)))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
+            if (Corners.TrueForAll(corner => gamePage.mapManager.PixelIsEmptyOrFinish(corner)))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
             {
                 Center = newCenter;
                 LeftFrontCorner = newLeftFrontCorner;
@@ -212,16 +213,16 @@ namespace WPF_KeyReact
         /// </summary>
         private void CheckIfFinish()
         {
-            if ((wnd.mapManager.PixelIsEmptyOrFinish(LeftFrontCorner, true) || wnd.mapManager.PixelIsEmptyOrFinish(RightFrontCorner, true))
+            if ((gamePage.mapManager.PixelIsEmptyOrFinish(LeftFrontCorner, true) || gamePage.mapManager.PixelIsEmptyOrFinish(RightFrontCorner, true))
                 && LeftFrontCorner.X < Center.X)
             {
                 if (!InFinish)
                 {
-                    int points = int.Parse(wnd.Player1Points.Text) + 1;
-                    wnd.Player1Points.Text = points.ToString();
+                    Points++;
+                    gamePage.Player1PointsTextBlock.Text = Points.ToString();
 
-                    if (points >= 5)
-                        wnd.ShowWinner(this);
+                    if (Points >= 5)
+                        gamePage.ShowWinner(this);
                 }
                 InFinish = true;
             }

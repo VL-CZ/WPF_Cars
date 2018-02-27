@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,23 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace WPF_KeyReact
 {
-
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for StartPage.xaml
+    /// </summary>
+    public partial class StartPage : Page
     {
-
-        /// <summary>
-        /// kostruktor okna
-        /// </summary>
-        public MainWindow()
+        public StartPage()
         {
             InitializeComponent();
+        }
 
-            StartPage sp = new StartPage();
-            ContentFrame.NavigationService.Navigate(sp);
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            GamePage gamePage = new GamePage();
+            this.NavigationService.Navigate(gamePage);
         }
     }
 }

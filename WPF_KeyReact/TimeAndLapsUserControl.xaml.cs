@@ -34,6 +34,7 @@ namespace WPF_KeyReact
 
             HelpClass.Player1Points = TextBlockPlayer1;
             HelpClass.Player2Points = TextBlockPlayer2;
+            HelpClass.Time = TextBlockTime;
         }
 
         private void Timer_Tick(object sender, EventArgs e)

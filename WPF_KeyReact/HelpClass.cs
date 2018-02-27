@@ -14,5 +14,6 @@ namespace WPF_KeyReact
         /// </summary>
         public static TextBlock Player1Points { get; set; }
         public static TextBlock Player2Points { get; set; }
+        public static TextBlock Time { get; set; }
     }
 }
