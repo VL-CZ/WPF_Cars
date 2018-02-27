@@ -83,6 +83,7 @@ namespace WPF_KeyReact
         public void ShowWinner(Car winner)
         {
             StatisticsPage statisticsPage = new StatisticsPage(int.Parse(TimeTextBlock.Text),winner, car, null); // místo null přijde 2. auto
+            
             this.NavigationService.Navigate(statisticsPage);
         }
 

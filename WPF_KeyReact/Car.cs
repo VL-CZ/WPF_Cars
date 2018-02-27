@@ -73,11 +73,6 @@ namespace WPF_KeyReact
         public Point LeftFrontCorner { get; private set; }
         public Point Center { get; private set; }
 
-        /// <summary>
-        /// je v cíli?
-        /// </summary>
-        public bool InFinish { get; set; } = false;
-
         #endregion
 
         /// <summary>
@@ -126,7 +121,7 @@ namespace WPF_KeyReact
 
             return new Point(x + Center.X, y + Center.Y);
         }
-        
+
         /// <summary>
         /// reaguje na stisk klávesy, pohne autem
         /// </summary>
@@ -213,21 +208,14 @@ namespace WPF_KeyReact
         /// </summary>
         private void CheckIfFinish()
         {
-            if ((gamePage.mapManager.PixelIsEmptyOrFinish(LeftFrontCorner, true) || gamePage.mapManager.PixelIsEmptyOrFinish(RightFrontCorner, true))
-                && LeftFrontCorner.X < Center.X)
+            if (gamePage.mapManager.PixelIsEmptyOrFinish(Center, true) && LeftFrontCorner.X < Center.X)
             {
-                if (!InFinish)
-                {
-                    Points++;
-                    gamePage.Player1PointsTextBlock.Text = Points.ToString();
+                Points++;
+                gamePage.Player1PointsTextBlock.Text = Points.ToString();
 
-                    if (Points >= 5)
-                        gamePage.ShowWinner(this);
-                }
-                InFinish = true;
+                if (Points >= 5)
+                    gamePage.ShowWinner(this);
             }
-            else
-                InFinish = false;
         }
 
         public override string ToString()
