@@ -45,6 +45,8 @@ namespace WPF_KeyReact
                 
                 LeftFrontCorner = CountCoordinatesAfterRotation(myAngle, LeftFrontCorner);
                 RightFrontCorner = CountCoordinatesAfterRotation(myAngle, RightFrontCorner);
+
+                image.RenderTransform = new RotateTransform(Angle);
             }
         }
         private double speed = 0;      //pixels per move
