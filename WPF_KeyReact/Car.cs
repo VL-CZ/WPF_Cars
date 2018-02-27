@@ -23,6 +23,7 @@ namespace WPF_KeyReact
         public KeyStuff Up, Down, Right, Left;
         public string Name { get; private set; }
         public int Points { get; private set; } = 0;
+        private bool inFinish = false;
 
         /// <summary>
         /// úhel, o který se otáčí auto
@@ -73,6 +74,11 @@ namespace WPF_KeyReact
         public Point LeftFrontCorner { get; private set; }
         public Point Center { get; private set; }
 
+        /// <summary>
+        /// je v cíli?
+        /// </summary>
+        public bool InFinish { get; set; } = false;
+
         #endregion
 
         /// <summary>
@@ -107,7 +113,6 @@ namespace WPF_KeyReact
             wnd.Controls.Add(Up);
             wnd.Controls.Add(Down);
         }
-
 
         /// <summary>
         /// otočí bod kolem Center
@@ -210,12 +215,18 @@ namespace WPF_KeyReact
         {
             if (gamePage.mapManager.PixelIsEmptyOrFinish(Center, true) && LeftFrontCorner.X < Center.X)
             {
-                Points++;
-                gamePage.Player1PointsTextBlock.Text = Points.ToString();
+                if (!InFinish)
+                {
+                    Points++;
+                    gamePage.Player1PointsTextBlock.Text = Points.ToString();
 
-                if (Points >= 5)
-                    gamePage.ShowWinner(this);
+                    if (Points >= 5)
+                        gamePage.ShowWinner(this);
+                }
+                InFinish = true;
             }
+            else
+                InFinish = false;
         }
 
         public override string ToString()
