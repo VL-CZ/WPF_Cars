@@ -13,6 +13,11 @@
 
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
 
-        <Image Name="ButtonCar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78" Height="44"  Source="Images/YellowCar.png" Margin="553,253,0,0" Stretch="Fill"/>
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="25" Name="ButtonCar" 
+                RenderTransformOrigin="0.5,0.5" Style="{StaticResource MyButtonStyle}">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/arrow.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

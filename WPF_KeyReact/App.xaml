@@ -9,7 +9,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter/>
+
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

@@ -89,12 +89,6 @@ namespace WPF_KeyReact
                 {
                     int points = int.Parse(Player1Points.Text) + 1;
                     Player1Points.Text = points.ToString();
-
-                    if (points >= 5)
-                    {
-                        MessageBox.Show("Hráč 1 vyhrál");
-                        this.Close();
-                    }
                 }
                 car.InFinish = true;
             }
