@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_KeyReact"
         mc:Ignorable="d"
         Title="Závody aut" Height="600" Width="1000" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="-2,-1,2,1">
         <Grid.Background>
             <ImageBrush ImageSource="Images/background_track.png"/>
         </Grid.Background>
@@ -14,7 +14,7 @@
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
 
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="25" Name="ButtonCar" 
-                RenderTransformOrigin="0.5,0.5" Style="{StaticResource MyButtonStyle}" >
+                RenderTransformOrigin="0.5,0.5" Style="{StaticResource MyButtonStyle}">
             <Button.Background>
                 <ImageBrush ImageSource="Images/arrow.png"/>
             </Button.Background>
