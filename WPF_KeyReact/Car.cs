@@ -16,8 +16,6 @@ namespace WPF_KeyReact
         private double height, width;
         private MainWindow wnd;
         public KeyStuff Up, Down, Right, Left;
-        private List<Point> Corners;
-        private bool cornerCollision = false;
         /// <summary>
         /// úhel, o který se otáčí auto
         /// </summary>
@@ -42,13 +40,14 @@ namespace WPF_KeyReact
                 angle = newAngle < 0 ? newAngle + 360 : newAngle;
 
                 myAngle *= (Math.PI / 180);
-                
+
                 LeftFrontCorner = CountCoordinatesAfterRotation(myAngle, LeftFrontCorner);
                 RightFrontCorner = CountCoordinatesAfterRotation(myAngle, RightFrontCorner);
 
                 image.RenderTransform = new RotateTransform(Angle);
             }
         }
+
         private double speed = 0;      //pixels per move
         public double Speed
         {
@@ -85,8 +84,8 @@ namespace WPF_KeyReact
             Point relativePoint = car.TransformToAncestor(ancestor).Transform(new Point(0.5, 0.5));
             Center = new Point(relativePoint.X + car.ActualWidth / 2, relativePoint.Y + car.ActualHeight / 2);
 
-            RightFrontCorner = new Point(Center.X - width, Center.Y - height);
-            LeftFrontCorner = new Point(Center.X - width, Center.Y + height);
+            RightFrontCorner = new Point(Center.X - width / 2, Center.Y - height / 2);
+            LeftFrontCorner = new Point(Center.X - width / 2, Center.Y + height / 2);
 
             //setting up controls
             Left = new KeyStuff(left);
@@ -164,30 +163,27 @@ namespace WPF_KeyReact
             double topMargin = (-1) * Math.Sin(piAngle) * speed;
             double leftMargin = (-1) * Math.Cos(piAngle) * speed;
 
+            Point newCenter = new Point(Center.X + leftMargin / 2, Center.Y + topMargin / 2);
+            Point newRightFrontCorner = new Point(RightFrontCorner.X + leftMargin / 2, RightFrontCorner.Y + topMargin / 2);
+            Point newLeftFrontCorner = new Point(LeftFrontCorner.X + leftMargin / 2, LeftFrontCorner.Y + topMargin / 2);
 
-            Point NewCenter = new Point(Center.X + leftMargin / 2, Center.Y + topMargin / 2);
-
-            if (cornerCollision)
+            List<Point> Corners = new List<Point>()
             {
-                Corners = new List<Point>
-                {
-                    new Point(NewCenter.X + width / 2, NewCenter.Y + height / 2),
-                    new Point(NewCenter.X - width / 2, NewCenter.Y + height / 2),
-                    new Point(NewCenter.X + width / 2, NewCenter.Y - height / 2),
-                    new Point(NewCenter.X - width / 2, NewCenter.Y - height / 2),
-                };
-            }
+                    newCenter, newLeftFrontCorner,newRightFrontCorner
+            };
 
-
-            if (cornerCollision ? Corners.TrueForAll(corner => wnd.mapManager.PixelIsEmpty(corner)) : wnd.mapManager.PixelIsEmpty(NewCenter))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
+            if (Corners.TrueForAll(corner => wnd.mapManager.PixelIsEmptyOrFinish(corner)))  // checks if corners collide or if center collides - decides base on cornerCollision boolean
             {
-                Center = NewCenter;
+                Center = newCenter;
+                LeftFrontCorner = newLeftFrontCorner;
+                RightFrontCorner = newRightFrontCorner;
+
                 image.Margin = new Thickness
                 (
                     image.Margin.Left + leftMargin / 2,
                     image.Margin.Top + topMargin / 2,
-                    0,
-                    0
+                    image.Margin.Right - leftMargin / 2,
+                    image.Margin.Bottom - topMargin / 2
                 );
             }
             else

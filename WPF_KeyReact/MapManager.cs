@@ -20,7 +20,11 @@ namespace WPF_KeyReact
         /// barva okolí dráhy
         /// </summary>
         private Color areaColor = Color.FromArgb(255, 255, 255);
-        
+
+        /// <summary>
+        /// barva cílové čáry
+        /// </summary>
+        private Color finishColor = Color.FromArgb(236, 28, 36);
 
         /// <summary>
         /// Constructor
@@ -35,12 +39,17 @@ namespace WPF_KeyReact
         /// <summary>
         /// rozhodne, jestli je pixel volný
         /// </summary>
-        public bool PixelIsEmpty(System.Windows.Point point)
+        public bool PixelIsEmptyOrFinish(System.Windows.Point point, bool finish = false) // pokud není zadaný parametr finish, tak je false
         {
             int RoundX = (int)Math.Round(point.X);
             int RoundY = (int)Math.Round(point.Y);
-            return Background.GetPixel(RoundX, RoundY) != areaColor; 
-            
+
+            Color color = Background.GetPixel(RoundX, RoundY);
+            if (finish)
+                return color == finishColor;
+            else
+                return color != areaColor;
+
         }
     }
 }

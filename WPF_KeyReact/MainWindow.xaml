@@ -13,6 +13,6 @@
 
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
 
-        <Image Name="ButtonCar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78" Height="44"  Source="Images/YellowCar.png" Margin="553,253,0,0" Stretch="Fill"/>
+        <Image Name="ButtonCar" VerticalAlignment="Center" HorizontalAlignment="Center" Width="78" Height="44"  Source="Images/YellowCar.png"/>
     </Grid>
 </Window>
