@@ -42,5 +42,10 @@ namespace WPF_KeyReact
             int seconds = int.Parse(TextBlockTime.Text) + 1;
             TextBlockTime.Text = seconds.ToString();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

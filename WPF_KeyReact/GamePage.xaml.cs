@@ -20,7 +20,7 @@ namespace WPF_KeyReact
     /// <summary>
     /// Interaction logic for GamePage.xaml
     /// </summary>
-    public partial class GamePage: Page
+    public partial class GamePage : Page
     {
         private Car car;
         public MapManager mapManager;
@@ -82,8 +82,11 @@ namespace WPF_KeyReact
         /// <param name="winner"></param>
         public void ShowWinner(Car winner)
         {
-            StatisticsPage statisticsPage = new StatisticsPage(int.Parse(TimeTextBlock.Text),winner, car, null); // místo null přijde 2. auto
-            
+            StatisticsPage statisticsPage = new StatisticsPage(int.Parse(TimeTextBlock.Text), winner, car, null); // místo null přijde 2. auto
+
+            timer.Tick -= car.Timer_Tick; // je potřeba, jinak při nové hře někdy padá
+            // timer.Tick-= secondCar.Timer_Tick;
+
             this.NavigationService.Navigate(statisticsPage);
         }
 

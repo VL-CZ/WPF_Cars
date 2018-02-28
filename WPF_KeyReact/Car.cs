@@ -221,8 +221,10 @@ namespace WPF_KeyReact
                     gamePage.Player1PointsTextBlock.Text = Points.ToString();
 
                     if (Points >= 5)
+                    {
                         gamePage.ShowWinner(this);
-                }
+
+                    }}
                 InFinish = true;
             }
             else
