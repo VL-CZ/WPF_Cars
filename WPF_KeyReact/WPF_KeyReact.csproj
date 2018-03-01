@@ -56,20 +56,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Car.cs" />
-    <Compile Include="Pages\GamePage.xaml.cs">
+    <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="KeyStuff.cs" />
-    <Compile Include="Pages\StartPage.xaml.cs">
+    <Compile Include="HelpClass.cs" />
+    <Compile Include="StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\StatisticsPage.xaml.cs">
+    <Compile Include="StatisticsPage.xaml.cs">
       <DependentUpon>StatisticsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\TimeAndLapsUserControl.xaml.cs">
+    <Compile Include="TimeAndLapsUserControl.xaml.cs">
       <DependentUpon>TimeAndLapsUserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\GamePage.xaml">
+    <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,18 +87,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\StartPage.xaml">
+    <Page Include="StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\StatisticsPage.xaml">
+    <Page Include="StatisticsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\TimeAndLapsUserControl.xaml">
+    <Page Include="TimeAndLapsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

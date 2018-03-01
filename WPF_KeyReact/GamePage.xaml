@@ -5,18 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_KeyReact"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="1000"
+      d:DesignHeight="300" d:DesignWidth="300"
       Title="GamePage" Loaded="Page_Loaded">
 
     <Grid Name="GridMain" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="-2,-2,2,2">
         <Grid.Background>
-            <ImageBrush ImageSource="../Images/background_track.png"/>
+            <ImageBrush ImageSource="Images/background_track.png"/>
         </Grid.Background>
 
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
 
-        <Image Name="ButtonCar" VerticalAlignment="Top" Height="37" Width="68" Source="../Images/YellowCar.png" Margin="544,228,0,0" Stretch="Fill" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" >
-            
-        </Image>
+        <Image Name="ButtonCar" VerticalAlignment="Center" HorizontalAlignment="Center" Width="78" Height="44"  Source="Images/YellowCar.png"/>
     </Grid>
 </Page>
