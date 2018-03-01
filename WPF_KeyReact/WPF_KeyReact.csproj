@@ -59,6 +59,7 @@
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HighScore.cs" />
     <Compile Include="KeyStuff.cs" />
     <Compile Include="HelpClass.cs" />
     <Compile Include="StartPage.xaml.cs">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml.Serialization;
 
 namespace WPF_KeyReact
 {
@@ -89,12 +91,12 @@ namespace WPF_KeyReact
 
             //ulozeni high score
             var score = new HighScore() { Time = int.Parse(TimeTextBlock.Text), Initials = "jmeno" };
-           _highScores.Add(score);
-            var serializer = new XmlSerializer(_highScores.GetType(), "HighScores.Scores");
-using (var writer = new StreamWriter("highscores.xml", false))
-{
-    serializer.Serialize(writer.BaseStream, _highScores);
-}
+            score.HighScores.Add(score);
+            var serializer = new XmlSerializer(score.HighScores.GetType(), "HighScores.Scores");
+            using (var writer = new StreamWriter("highscores.xml", false))
+            {
+                serializer.Serialize(writer.BaseStream, score.HighScores);
+            }
             this.NavigationService.Navigate(statisticsPage);
         }
 
