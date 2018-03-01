@@ -25,22 +25,20 @@ namespace WPF_KeyReact
             InitializeComponent();
 
             TimeTextBlock.Text = time.ToString();
-            P1TextBlock.Text = p1.Points.ToString();
+            P1TextBlock.Text = p1.Laps.ToString();
             // P2TextBlock.Text = p2.Points.ToString();
 
-            WinnerTextBlock.Text = p1 == winner ? p1.ToString() : p2.ToString();
+            WinnerTextBlock.Text = p1 == winner ? p1.Name : p2.Name;
         }
 
         private void NewGameButon_Click(object sender, RoutedEventArgs e)
         {
-            GamePage gamePage = new GamePage();
-            this.NavigationService.Navigate(gamePage);
+            this.NavigationService.Navigate(new GamePage());
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Window window = Window.GetWindow(this);
-            window.Close();
+            Application.Current.Shutdown();
         }
     }
 }
