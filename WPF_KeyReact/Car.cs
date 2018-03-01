@@ -80,7 +80,7 @@ namespace WPF_KeyReact
         public bool InFinish { get; set; } = false;
 
         #endregion
-
+        //michal
         /// <summary>
         /// konstruktor
         /// </summary>
