@@ -10,18 +10,7 @@
 
     <!--Styles-->
     <Page.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="40"/>
-        </Style>
-
+        <ResourceDictionary Source="Styles.xaml"></ResourceDictionary>
     </Page.Resources>
 
     <Grid>

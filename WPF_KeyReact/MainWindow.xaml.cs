@@ -27,9 +27,8 @@ namespace WPF_KeyReact
         public MainWindow()
         {
             InitializeComponent();
-
-            StartPage sp = new StartPage();
-            ContentFrame.NavigationService.Navigate(sp);
+            
+            ContentFrame.NavigationService.Navigate(new GamePage());
         }
     }
 }

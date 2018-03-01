@@ -67,9 +67,9 @@ namespace WPF_KeyReact
             car = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down, "Player 1");
             mapManager = new MapManager(new System.Drawing.Size((int)(GridMain.ActualWidth), (int)(GridMain.ActualHeight)));
 
-            Player1PointsTextBlock = HelpClass.Player1Points;
-            Player2PointsTextBlock = HelpClass.Player2Points;
-            TimeTextBlock = HelpClass.Time;
+            Player1PointsTextBlock = App.Player1Points;
+            Player2PointsTextBlock = App.Player2Points;
+            TimeTextBlock = App.Time;
 
             Window window = Window.GetWindow(this);
             window.KeyDown += (obj, args) => ModifyKeyState(args.Key, true);
