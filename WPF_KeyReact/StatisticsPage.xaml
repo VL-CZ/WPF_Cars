@@ -6,10 +6,27 @@
       xmlns:local="clr-namespace:WPF_KeyReact"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="StatisticsPage"
-      >
+      Title="StatisticsPage">
+
+    <!--Styles-->
     <Page.Resources>
-        <ResourceDictionary Source="Styles.xaml"></ResourceDictionary>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="BigLetter">
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        
     </Page.Resources>
 
     <Grid>
@@ -44,14 +61,10 @@
         <TextBlock Grid.Column="1" Grid.Row="3" Name="P1TextBlock"></TextBlock>
         <TextBlock Grid.Column="1" Grid.Row="4" Name="P2TextBlock"></TextBlock>
 
-        <Grid  Grid.Row="5" Grid.ColumnSpan="2" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Name="NewGameButon" Grid.Column="0" Click="NewGameButon_Click">Nová hra</Button>
-            <Button Name="CloseButton" Grid.Column="1" Click="CloseButton_Click">Konec</Button>
-        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            <Button Name="NewGameButon" Click="NewGameButon_Click">Nová hra</Button>
+            <Button Name="CloseButton" Click="CloseButton_Click">Konec</Button>
+        </StackPanel>
         
 
     </Grid>

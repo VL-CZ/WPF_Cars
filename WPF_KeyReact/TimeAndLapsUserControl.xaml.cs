@@ -22,20 +22,19 @@ namespace WPF_KeyReact
     /// </summary>
     public partial class TimeAndLapsUserControl : UserControl
     {
-        DispatcherTimer timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1)
-            };
         public TimeAndLapsUserControl()
         {
             InitializeComponent();
-            
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
             timer.Tick += Timer_Tick;
-            
+            timer.Start();
 
-            App.Player1Points = TextBlockPlayer1;
-            App.Player2Points = TextBlockPlayer2;
-            App.Time = TextBlockTime;
+            HelpClass.Player1Points = TextBlockPlayer1;
+            HelpClass.Player2Points = TextBlockPlayer2;
+            HelpClass.Time = TextBlockTime;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -46,7 +45,7 @@ namespace WPF_KeyReact
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            timer.Start();
+            
         }
     }
 }
