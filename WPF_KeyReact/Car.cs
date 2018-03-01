@@ -127,6 +127,15 @@ namespace WPF_KeyReact
             return new Point(x + Center.X, y + Center.Y);
         }
 
+        private bool PlayerColision(Car car1, Car car2)
+        {
+            float angle = (float)Math.Abs(car1.angle - car2.angle);
+            float y1 = (float)(Math.Abs((car1.RightFrontCorner.X - car1.Center.X)) * Math.Sin(angle) + Math.Abs((car1.RightFrontCorner.Y - car1.Center.Y)) * Math.Cos(angle));
+            float y2 = (float)(Math.Abs((car1.RightFrontCorner.Y - car1.Center.Y)));
+            float vzdalenost = (float)Point.Subtract(car1.Center, car2.Center).Length;
+            return vzdalenost > (y1 + y2);
+        }
+
         /// <summary>
         /// reaguje na stisk klávesy, pohne autem
         /// </summary>
