@@ -95,19 +95,6 @@ using (var writer = new StreamWriter("highscores.xml", false))
 {
     serializer.Serialize(writer.BaseStream, _highScores);
 }
-
-//tohle přidat pro načtení highscores na začátek programu
-// To Load the high scores
-var serializer = new XmlSerializer(_entities.GetType(), "HighScores.Scores");
-object obj;
-using (var reader = new StreamReader("highscores.xml"))
-{
-    obj = serializer.Deserialize(reader.BaseStream);
-}
-_highScores = (List<HighScore>)obj;
-
-
-
             this.NavigationService.Navigate(statisticsPage);
         }
 

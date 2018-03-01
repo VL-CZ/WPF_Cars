@@ -28,6 +28,18 @@ namespace WPF_KeyReact
         {
             InitializeComponent();
 
+           
+// Načte high score
+var serializer = new XmlSerializer(_entities.GetType(), "HighScores.Scores");
+object obj;
+using (var reader = new StreamReader("highscores.xml"))
+{
+    obj = serializer.Deserialize(reader.BaseStream);
+}
+_highScores = (List<HighScore>)obj;
+         
+
+
             StartPage sp = new StartPage();
             ContentFrame.NavigationService.Navigate(sp);
         }
