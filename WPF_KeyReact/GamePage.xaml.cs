@@ -87,8 +87,31 @@ namespace WPF_KeyReact
             timer.Tick -= car.Timer_Tick; // je potřeba, jinak při nové hře někdy padá
             // timer.Tick-= secondCar.Timer_Tick;
 
+            //ulozeni high score
+            var score = new HighScore() { Time = int.Parse(TimeTextBlock.Text), Initials = "jmeno" };
+           _highScores.Add(score);
+            var serializer = new XmlSerializer(_highScores.GetType(), "HighScores.Scores");
+using (var writer = new StreamWriter("highscores.xml", false))
+{
+    serializer.Serialize(writer.BaseStream, _highScores);
+}
+
+//tohle přidat pro načtení highscores na začátek programu
+// To Load the high scores
+var serializer = new XmlSerializer(_entities.GetType(), "HighScores.Scores");
+object obj;
+using (var reader = new StreamReader("highscores.xml"))
+{
+    obj = serializer.Deserialize(reader.BaseStream);
+}
+_highScores = (List<HighScore>)obj;
+
+
+
             this.NavigationService.Navigate(statisticsPage);
         }
+
+
 
     }
 }
