@@ -128,21 +128,32 @@ namespace WPF_KeyReact
             return new Point(x + Center.X, y + Center.Y);
         }
 
+        /// <summary>
+        /// 1/2 velikosti (velikost od středu) v ose X,Y obou hráčů dohromady
+        /// </summary>
+        /// <param name="a">vektor od středu k rohu hráče</param>
+        /// <param name="uhel">úhel který svírají hráči mezi sebou</param>
+        /// <returns></returns>
         private Point Rozmery(Point a, double uhel)
         {
             Point rozmery = new Point{
-                X = Abs(a.X) * (1 + Cos(uhel)) + Abs(a.Y) * Sin(uhel),
-                Y = Abs(a.Y) * (1 + Cos(uhel)) + Abs(a.X) * Sin(uhel)
+                X = Abs(a.X) * (1 + Cos(uhel)) + Abs(a.Y) * Sin(uhel),//sirka po otoceni(X*cos+Y*sin) + sirka druheho(X*1)
+                Y = Abs(a.Y) * (1 + Cos(uhel)) + Abs(a.X) * Sin(uhel)//vyska po otoceni(Y*cos+X*sin) + sirka druheho(X*1)
             };
             return rozmery;
         }
 
+        /// <summary>
+        /// Pokud jsou hráči dále od sebe než jejich okraje pak nekolidují vrací true
+        /// </summary>
+        /// <param name="car2">druhý hráč pro něhož se zkoumá kolize</param>
+        /// <returns></returns>
         private bool PlayerColision(Car car2)
         {
-            double uhel = Abs(angle - car2.angle);
-            Point rozmery = Rozmery((Point)Point.Subtract(RightFrontCorner,Center),uhel);
-            Point vzdalenost = (Point)Point.Subtract(Center, car2.Center);
-            return ((Abs(vzdalenost.X) > Abs(rozmery.X)) && (Abs(vzdalenost.Y) > Abs(rozmery.Y)));
+            double uhel = Abs(angle - car2.angle);//úhel který svírají hráči mezi sebou
+            Point rozmery = Rozmery((Point)Point.Subtract(RightFrontCorner,Center),uhel);//velikosti v osách X,Y obou hráčů od středu
+            Point vzdalenost = (Point)Point.Subtract(Center, car2.Center);//vdalenost hračů mezi sebou
+            return ((vzdalenost.X > Abs(rozmery.X)) && (Abs(vzdalenost.Y) > Abs(rozmery.Y)));//jsou li dost daleko od sebe
         }
 
         /// <summary>
