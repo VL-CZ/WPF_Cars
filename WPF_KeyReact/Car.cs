@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static System.Math;
 
 namespace WPF_KeyReact
 {
@@ -127,16 +128,22 @@ namespace WPF_KeyReact
             return new Point(x + Center.X, y + Center.Y);
         }
 
+        private Point Rozmery(Point a, double uhel)
+        {
+            Point rozmery = new Point{
+                X = Abs(a.X) * (1 + Cos(uhel)) + Abs(a.Y) * Sin(uhel),
+                Y = Abs(a.Y) * (1 + Cos(uhel)) + Abs(a.X) * Sin(uhel)
+            };
+            return rozmery;
+        }
+
         private bool PlayerColision(Car car2)
         {
-            float uhel = (float)Math.Abs(angle - car2.angle);
-            float y1 = (float)(Math.Abs((RightFrontCorner.X - Center.X)) * Math.Sin(uhel) + Math.Abs((RightFrontCorner.Y - Center.Y)) * Math.Cos(uhel));
-            float y2 = (float)(Math.Abs((RightFrontCorner.Y - Center.Y)));
-            float x1 = (float)(Math.Abs((RightFrontCorner.X - Center.X)) * Math.Cos(uhel) + Math.Abs((RightFrontCorner.Y - Center.Y)) * Math.Sin(uhel));
-            float x2 = (float)(Math.Abs((RightFrontCorner.X - Center.X)));
-            float vzdalenost = (float)Point.Subtract(Center, car2.Center).Length;
-            bool zezadu = (Point.Subtract(Center, car2.Center).X > (x1 + x2));
-            return (((!zezadu) && (vzdalenost > (y1 + y2))) || (zezadu && (vzdalenost > (x1 + x2))));
+            double uhel = Abs(angle - car2.angle);
+            Point rozmery = Rozmery((Point)Point.Subtract(RightFrontCorner,Center),uhel);
+            double vzdalenost = Point.Subtract(Center, car2.Center).Length;
+            bool zezadu = (Abs(Point.Subtract(Center, car2.Center).X) > rozmery.X);
+            return (((!zezadu) && (vzdalenost > rozmery.Y)) || (zezadu && (vzdalenost > rozmery.X)));
         }
 
         /// <summary>
