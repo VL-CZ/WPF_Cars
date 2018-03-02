@@ -135,7 +135,8 @@ namespace WPF_KeyReact
             float x1 = (float)(Math.Abs((RightFrontCorner.X - Center.X)) * Math.Cos(uhel) + Math.Abs((RightFrontCorner.Y - Center.Y)) * Math.Sin(uhel));
             float x2 = (float)(Math.Abs((RightFrontCorner.X - Center.X)));
             float vzdalenost = (float)Point.Subtract(Center, car2.Center).Length;
-            return ((vzdalenost > (y1 + y2)) && (vzdalenost > (x1 + x2)));
+            bool zezadu = (Point.Subtract(Center, car2.Center).X > (x1 + x2));
+            return (((!zezadu) && (vzdalenost > (y1 + y2))) || (zezadu && (vzdalenost > (x1 + x2))));
         }
 
         /// <summary>
