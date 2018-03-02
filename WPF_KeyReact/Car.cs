@@ -141,9 +141,8 @@ namespace WPF_KeyReact
         {
             double uhel = Abs(angle - car2.angle);
             Point rozmery = Rozmery((Point)Point.Subtract(RightFrontCorner,Center),uhel);
-            double vzdalenost = Point.Subtract(Center, car2.Center).Length;
-            bool zezadu = (Abs(Point.Subtract(Center, car2.Center).X) > rozmery.X);
-            return (((!zezadu) && (vzdalenost > rozmery.Y)) || (zezadu && (vzdalenost > rozmery.X)));
+            Point vzdalenost = (Point)Point.Subtract(Center, car2.Center);
+            return ((Abs(vzdalenost.X) > Abs(rozmery.X)) && (Abs(vzdalenost.Y) > Abs(rozmery.Y)));
         }
 
         /// <summary>
