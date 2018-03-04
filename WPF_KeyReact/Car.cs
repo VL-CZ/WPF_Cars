@@ -95,11 +95,11 @@ namespace WPF_KeyReact
             width = car.ActualWidth;
             car.RenderTransformOrigin = new Point(0.5, 0.5);
 
-            Point relativePoint = car.TransformToAncestor(ancestor).Transform(new Point(0.5, 0.5));
+            Point relativePoint = car.TransformToAncestor(ancestor).Transform(new Point(0, 0));
             Center = new Point(relativePoint.X + car.ActualWidth / 2, relativePoint.Y + car.ActualHeight / 2);
-
-            RightFrontCorner = new Point(Center.X - width / 2, Center.Y - height / 2);
-            LeftFrontCorner = new Point(Center.X - width / 2, Center.Y + height / 2);
+            int someConstant = 5;
+            RightFrontCorner = new Point(Center.X - width / 2 + someConstant, Center.Y - height / 2 + someConstant);
+            LeftFrontCorner = new Point(Center.X - width / 2 + someConstant, Center.Y + height / 2 - someConstant);
 
             //setting up controls
             Left = new KeyStuff(left);
