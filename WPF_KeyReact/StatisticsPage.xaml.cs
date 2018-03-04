@@ -26,7 +26,7 @@ namespace WPF_KeyReact
 
             TimeTextBlock.Text = time.ToString();
             P1TextBlock.Text = p1.Points.ToString();
-            // P2TextBlock.Text = p2.Points.ToString();
+            P2TextBlock.Text = p2.Points.ToString();
 
             WinnerTextBlock.Text = p1 == winner ? p1.ToString() : p2.ToString();
         }
