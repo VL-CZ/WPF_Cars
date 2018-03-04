@@ -153,12 +153,11 @@ namespace WPF_KeyReact
             Point rozmery = Rozmery((Point)Point.Subtract(RightFrontCorner,Center),uhel);//velikosti v osách X,Y obou hráčů od středu
             Point vzdalenost = (Point)Point.Subtract(Center, car2.Center);//vdalenost hračů mezi sebou
             double a = (angle>0) ? angle%360 : (360-angle%360);
-            bool smerKolize = 
-             (a < 90 && vzdalenost.X > 0) 
-            || (a >= 90 && a < 180 && vzdalenost.Y < 0)
-            || (a >= 180 && a < 270 && vzdalenost.X < 0)
-            || (a >= 270 && a < 360 && vzdalenost.Y > 0) ? true : false;
-            return (((vzdalenost.X > Abs(rozmery.X)) && (Abs(vzdalenost.Y) > Abs(rozmery.Y))) && !smerKolize);//jsou li dost daleko od sebe
+            return
+             (a < 90 && vzdalenost.X > rozmery.X)
+            || (a >= 90 && a < 180 && vzdalenost.Y < -rozmery.Y)
+            || (a >= 180 && a < 270 && vzdalenost.X < -rozmery.X)
+            || (a >= 270 && a < 360 && vzdalenost.Y > rozmery.Y);//je li daleko ve směru nárazu
         }
 
         /// <summary>
