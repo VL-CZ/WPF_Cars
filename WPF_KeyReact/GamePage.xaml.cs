@@ -22,7 +22,7 @@ namespace WPF_KeyReact
     /// </summary>
     public partial class GamePage : Page
     {
-        private Car car;
+        private Car player1, player2;
         public MapManager mapManager;
         internal ConcurrentBag<KeyStuff> Controls = new ConcurrentBag<KeyStuff>();          //concurrent bag je neco jako list, ale je multi thread safe = da se s nim pracovat z vice vlaken aniz by to hazelo errory. Pouzivam ho zde kvuli asynchroni operaci v methode ModifyKeyState
 
@@ -64,7 +64,8 @@ namespace WPF_KeyReact
         /// </summary>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            car = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down, "Player 1");
+            player1 = new Car(this, ButtonCar, GridMain, Key.Left, Key.Right, Key.Up, Key.Down, "Player 1");
+            player2 = new Car(this, ButtonCar2, GridMain, Key.A, Key.D, Key.W, Key.S, "Player 2");
             mapManager = new MapManager(new System.Drawing.Size((int)(GridMain.ActualWidth), (int)(GridMain.ActualHeight)));
 
             Player1PointsTextBlock = HelpClass.Player1Points;
@@ -82,10 +83,10 @@ namespace WPF_KeyReact
         /// <param name="winner"></param>
         public void ShowWinner(Car winner)
         {
-            StatisticsPage statisticsPage = new StatisticsPage(int.Parse(TimeTextBlock.Text), winner, car, null); // místo null přijde 2. auto
+            StatisticsPage statisticsPage = new StatisticsPage(int.Parse(TimeTextBlock.Text), winner, player1, player2); // místo null přijde 2. auto
 
-            timer.Tick -= car.Timer_Tick; // je potřeba, jinak při nové hře někdy padá
-            // timer.Tick-= secondCar.Timer_Tick;
+            timer.Tick -= player1.Timer_Tick; // je potřeba, jinak při nové hře někdy padá
+            timer.Tick -= player2.Timer_Tick;
 
             this.NavigationService.Navigate(statisticsPage);
         }

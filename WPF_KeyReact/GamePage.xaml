@@ -15,6 +15,7 @@
 
         <local:TimeAndLapsUserControl VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto" Height="auto"/>
 
-        <Image Name="ButtonCar" VerticalAlignment="Center" HorizontalAlignment="Center" Width="78" Height="44"  Source="Images/YellowCar.png"/>
+        <Image Name="ButtonCar" VerticalAlignment="Center" HorizontalAlignment="Center" Width="78" Height="44" Margin="0,0,0,-50" Source="Images/YellowCar.png"/>
+        <Image Name="ButtonCar2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="78" Height="44" Margin="0,0,0,50" Source="Images/BlueCar.png"/>
     </Grid>
 </Page>

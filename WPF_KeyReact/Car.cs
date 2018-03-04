@@ -23,7 +23,6 @@ namespace WPF_KeyReact
         public KeyStuff Up, Down, Right, Left;
         public string Name { get; private set; }
         public int Points { get; private set; } = 0;
-        private bool inFinish = false;
 
         /// <summary>
         /// úhel, o který se otáčí auto
@@ -77,7 +76,7 @@ namespace WPF_KeyReact
         /// <summary>
         /// je v cíli?
         /// </summary>
-        public bool InFinish { get; set; } = false;
+        private bool inFinish = false;
 
         #endregion
 
@@ -215,20 +214,25 @@ namespace WPF_KeyReact
         {
             if (gamePage.mapManager.PixelIsEmptyOrFinish(Center, true) && LeftFrontCorner.X < Center.X)
             {
-                if (!InFinish)
+                if (!inFinish)
                 {
                     Points++;
-                    gamePage.Player1PointsTextBlock.Text = Points.ToString();
+
+                    if (Name == "Player 1")
+                        gamePage.Player1PointsTextBlock.Text = Points.ToString();
+                    else if(Name=="Player 2")
+                        gamePage.Player2PointsTextBlock.Text = Points.ToString();
 
                     if (Points >= 5)
                     {
                         gamePage.ShowWinner(this);
 
-                    }}
-                InFinish = true;
+                    }
+                }
+                inFinish = true;
             }
             else
-                InFinish = false;
+                inFinish = false;
         }
 
         public override string ToString()
